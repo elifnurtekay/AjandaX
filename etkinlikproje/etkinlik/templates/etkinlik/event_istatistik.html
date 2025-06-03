@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Etkinlik İstatistikleri{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mb-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <!-- Sekmeler -->
+                <ul class="nav nav-tabs mb-3" id="tabMenu">
+                  <li class="nav-item">
+                    <a class="nav-link {% if active_tab == 'takvim' %}active{% endif %}" href="{% url 'event_list' %}">Takvim</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link {% if active_tab == 'listele' %}active{% endif %}" href="{% url 'event_listele' %}">Listele</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link {% if active_tab == 'istatistik' %}active{% endif %}" href="{% url 'event_istatistik' %}">İstatistikler</a>
+                  </li>
+                </ul>
+                <!-- İstatistikler -->
+                <h5>İstatistikler</h5>
+                <div class="row row-cols-2 g-2 mb-3">
+                    <div class="col">
+                        <div class="card text-center shadow-sm p-2 small">
+                            <b>Bu Ay<br>Etkinlik</b>
+                            <div class="h5 my-2">{{ stats.ay_etkinlik }}</div>
+                            <div class="text-success">↑ %12</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card text-center shadow-sm p-2 small">
+                            <b>Bu Ay<br>Randevu</b>
+                            <div class="h5 my-2">{{ stats.ay_randevu }}</div>
+                            <div class="text-success">↑ %8</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card text-center shadow-sm p-2 small">
+                            <b>Tamamlanan<br>Etkinlik</b>
+                            <div class="h5 my-2">{{ stats.tamamlanan }}</div>
+                            <div class="text-success">↑ %15</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card text-center shadow-sm p-2 small">
+                            <b>Bekleyen<br>Etkinlik</b>
+                            <div class="h5 my-2">{{ stats.bekleyen }}</div>
+                            <div class="text-danger">↓ %3</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Buraya grafik, tablo vs. ekleyebilirsin -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

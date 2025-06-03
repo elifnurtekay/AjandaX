@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Randevularım{% endblock %}
+{% block content %}
+<h4 class="mb-4">Randevularım</h4>
+<div class="card shadow-sm">
+    <div class="card-body">
+        {% for appointment in appointments %}
+            <div class="border-bottom py-2">
+                <b>{{ appointment.event.title }}</b> | {{ appointment.event.start_time|date:"d M Y H:i" }}
+                <span class="text-muted">{{ appointment.notes }}</span>
+                <a href="{% url 'appointment_delete' appointment.id %}" class="btn btn-sm btn-danger float-end">Sil</a>
+            </div>
+        {% empty %}
+            <div class="text-muted">Henüz bir randevunuz yok.</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

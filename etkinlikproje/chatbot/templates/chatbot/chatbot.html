@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}AjandaX | Chatbot{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+  <div class="col-md-7 col-lg-5">
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white fw-bold">
+        AjandaX Chatbot
+      </div>
+      <div class="card-body" style="min-height:250px;">
+        <div id="messages" style="max-height:320px; overflow-y:auto; margin-bottom:10px; background:#f8f9fa; padding:12px; border-radius:8px;"></div>
+        <div class="input-group">
+          <input type="text" id="usermsg" class="form-control" placeholder="Sorunuzu yazın..." autocomplete="off" />
+          <button class="btn btn-primary" onclick="sendMsg()">Gönder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function addMessage(sender, text) {
+    const msgBox = document.getElementById("messages");
+    const msgDiv = document.createElement("div");
+    msgDiv.innerHTML = `<b>${sender}:</b> ${text}`;
+    msgDiv.className = sender === "Sen" ? "text-end mb-2" : "text-start mb-2 text-primary";
+    msgBox.appendChild(msgDiv);
+    msgBox.scrollTop = msgBox.scrollHeight;
+}
+function sendMsg() {
+    const msgInput = document.getElementById("usermsg");
+    const msg = msgInput.value.trim();
+    if (!msg) return;
+    addMessage("Sen", msg);
+    msgInput.value = "";
+    fetch("{% url 'chat_api' %}", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({message: msg})
+    })
+    .then(resp => resp.json())
+    .then(data => {
+        addMessage("Bot", data.reply);
+    })
+    .catch(_ => addMessage("Bot", "Bir hata oluştu, lütfen tekrar deneyin."));
+}
+document.getElementById("usermsg").addEventListener("keydown", function(e){
+    if (e.key === "Enter") sendMsg();
+});
+</script>
+{% endblock %}

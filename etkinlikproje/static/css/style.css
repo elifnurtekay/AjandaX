@@ -1,0 +1,18 @@
+body { 
+    font-family: 'Inter', Arial, sans-serif; 
+    background: #f6f8fa; 
+}
+.card { border-radius: 16px; }
+.table thead th { background: #f5f7fa; }
+.navbar-brand { font-weight: 600; letter-spacing: 0.5px; }
+.btn-primary { border-radius: 10px; }
+.badge { font-size: 0.9em; }
+footer { margin-top: 48px; }
+.ajandax-logo { height:32px; margin-right:10px; }
+#calendar {
+    min-height: 400px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px #0001;
+    padding: 10px;
+}
